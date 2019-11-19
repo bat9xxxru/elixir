@@ -1,6 +1,3 @@
-#include <sourcemod>
-
-
 void ConnectDatabase(){
     char id[16], error[256], query[512];
     bool sqlite;
