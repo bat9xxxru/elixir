@@ -76,7 +76,7 @@ public void OnMapStart(){
         }
     }
 
-    delete file;dwada
+    delete file;
 }
 
 public void OnClientPostAdminCheck(int client){
