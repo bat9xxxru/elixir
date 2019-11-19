@@ -10,4 +10,26 @@
         "en"        "Welcome! On your balance: {1} coins."
         "ru"        "Добро пожаловать! На вашем балансе: {1} монет."
     }
+    "Balance"
+    {
+        "#format"   "{1:d}"
+        "en"        "Your balance: {1} coins"
+        "ru"        "Ваш баланс: {1} монет"
+    }
+    "Id"
+    {
+        "#format"   "{1:d}"
+        "en"        "Your ID: {1}"
+        "ru"        "Ваш ID: {1}"
+    }
+    "Shop"
+    {
+        "en"        "Shop"
+        "ru"        "Магазин"
+    }
+    "Information"
+    {
+        "en"        "Information"
+        "ru"        "Информация"
+    }
 }
