@@ -32,4 +32,9 @@
         "en"        "Information"
         "ru"        "Информация"
     }
+    "Back"
+    {
+        "en"        "Back"
+        "ru"        "Назад"
+    }
 }

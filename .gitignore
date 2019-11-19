@@ -3,3 +3,4 @@ scripting/compile.dat
 scripting/compile.exe
 scripting/spcomp.exe
 scripting/compiled
+!scripting/include/elixir.inc

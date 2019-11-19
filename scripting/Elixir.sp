@@ -10,6 +10,8 @@
 
 Database _database;
 
+Panel _info;
+
 int _countRetryConnect, _afterHowMuch = 86400, _uID[MAXPLAYERS + 1], _uCoins[MAXPLAYERS + 1];
 
 char _uUID[MAXPLAYERS + 1][32], _logPath[PLATFORM_MAX_PATH];
@@ -51,6 +53,30 @@ public void OnPluginEnd(){
 
 public void OnMapStart(){
     AutoCleaning();
+
+    if(_info != null) delete _info;
+
+    static char buffer[PLATFORM_MAX_PATH];
+    BuildPath(Path_SM, buffer, PLATFORM_MAX_PATH, "configs/elixir/information.txt");
+
+    File file = OpenFile(buffer, "r");
+
+    if(file != null && FileExists(buffer)){
+        if(file.ReadLine(buffer, PLATFORM_MAX_PATH)){
+            if(buffer[0]){
+                _info = new Panel();
+                _info.DrawText(buffer);
+
+                while (!file.EndOfFile() && file.ReadLine(buffer, PLATFORM_MAX_PATH)){
+                    if(buffer[0]) _info.DrawText(buffer);
+                }
+
+                _info.DrawItem(" ", ITEMDRAW_SPACER|ITEMDRAW_RAWLINE);
+            }
+        }
+    }
+
+    delete file;
 }
 
 public void OnClientPostAdminCheck(int client){
