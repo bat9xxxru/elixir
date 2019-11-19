@@ -13,10 +13,10 @@ void ConnectDatabase(){
     SQL_LockDatabase(_database);
 
     _database.Format(query, 512, "CREATE TABLE IF NOT EXISTS `users` ( \
-                                 `id` INTEGER PRIMARY KEY %s,
+                                 `id` INTEGER PRIMARY KEY %s, \
                                  `uid` varchar(32) NOT NULL UNIQUE, \
-                                 `coins` INTEGER NOT NULL default 0, \
-                                 `lastvisit` INTEGER NOT NULL default 0)%s", sqlite ? "AUTOINCREMENT" : "AUTO_INCREMENT", sqlite ? ";" : " CHARSET=utf8 COLLATE utf8_general_ci");
+                                 `coins` INTEGER NOT NULL default '0', \
+                                 `lastvisit` INTEGER NOT NULL default '0')%s", sqlite ? "AUTOINCREMENT" : "AUTO_INCREMENT", sqlite ? ";" : " CHARSET=utf8 COLLATE utf8_general_ci");
     if(!SQL_FastQuery(_database, query)) SetFailState("Failed to create tables");
     SQL_UnlockDatabase(_database);
 
@@ -49,7 +49,7 @@ void SaveDataPlayer(int client){
 	}
 
     char query[128];
-    _database.Format(query, 128, "UPDATE `users` SET `coins` = '%i' `lastvisit` = '%i', WHERE `id` = '%i'", _uCoins[client], GetTime() + _afterHowMuch, _uID[client]);
+    _database.Format(query, 128, "UPDATE `users` SET `coins` = '%i', `lastvisit` = '%i' WHERE `id` = '%i'", _uCoins[client], GetTime() + _afterHowMuch, _uID[client]);
     _database.Query(Stub, query, _, DBPrio_High);
 
     _uID[client] = 0;
@@ -63,7 +63,7 @@ void CreateAccount(int client){
 	}
 
     char query[128];
-    _database.Format(query, 128, "INSERT INTO `users` (`uid`) VALUES (`%s`)", _uUID[client]);
+    _database.Format(query, 128, "INSERT INTO `users` (`uid`) VALUES ('%s')", _uUID[client]);
     _database.Query(CreateAccountCallBack, query, client);
 }
 
@@ -102,7 +102,7 @@ public void Stub(Database db, DBResultSet result, const char[] error, any data){
 	}
 }
 
-public void LoadDataPlayerCallBack(Database db, DBResultSet result, const char[] error, any data){
+public void LoadDataPlayerCallBack(Database db, DBResultSet result, const char[] error, int client){
 	if(!result){
 		LogError("%s", error);
 		if(StrContains(error, "Lost connection to MySQL", false) != -1){
@@ -123,7 +123,7 @@ public void LoadDataPlayerCallBack(Database db, DBResultSet result, const char[]
     }
 }
 
-public void CreateAccountCallBack(Database db, DBResultSet result, const char[] error, any data){
+public void CreateAccountCallBack(Database db, DBResultSet result, const char[] error, int client){
 	if(!result){
 		LogError("%s", error);
 		if(StrContains(error, "Lost connection to MySQL", false) != -1){

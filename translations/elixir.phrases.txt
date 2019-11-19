@@ -1,0 +1,13 @@
+"Phrases"
+{
+    "Prefix"
+    {
+        "en"        "{RED}[Elixir]{WHITE}"
+    }
+    "Welcome"
+    {
+        "#format"   "{1:d}"
+        "en"        "Welcome! On your balance: {1} coins."
+        "ru"        "Добро пожаловать! На вашем балансе: {1} монет."
+    }
+}
